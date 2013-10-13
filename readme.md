@@ -23,7 +23,7 @@ file-stream(
 
 )
 
-=> handled (bool)
+=> handled (boolean)
 ```
 
 ### Example
@@ -33,14 +33,15 @@ var stream = require('file-stream')
 var filepath = '/path/to/file'
 
 http.createServer(function(req, res) {
+
   // If file-stream can’t handle the request 
   // it will return false.
   if (!stream(filepath, req, res)) {
-    res.writeHead(500, {
-      'Content-Type': 'text/plain'
-    })
+    res.statusCode = 500
+    res.setHeader('Content-Type', 'text/plain')
     res.end('unable to stream ' + filepath + '\n')
   }
+
 }).listen(8080)
 ```
 
